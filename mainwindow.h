@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QMessageBox>
 #include <QSerialPortInfo>
+#include <QSettings>
+#include <QElapsedTimer>
+#include <QDebug>
 #include "SerialPort.h"
 
 QT_BEGIN_NAMESPACE
@@ -21,6 +24,12 @@ public:
     ~MainWindow();
 
     void LoadPorts();
+    void LoadSettings();
+    void StoreSettings();
+
+    void AddTxBytes(qint64 bytes);
+    void AddRxBytes(qint64 bytes);
+
     void SendData();
 
 private slots:
@@ -33,10 +42,12 @@ private slots:
 
     void on_LineEditTx_returnPressed();
 
+    void on_btnClear_clicked();
+
 private:
     Ui::MainWindow *ui;
     SerialPort _port;
 
-
+    QElapsedTimer _timer;
 };
 #endif // MAINWINDOW_H
