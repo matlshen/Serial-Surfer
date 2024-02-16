@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>app_icons/icons8-clear-94.png</file>
+        <file>app_icons/icons8-clear-95.png</file>
+        <file>app_icons/icons8-connect-94.png</file>
+        <file>app_icons/icons8-disconnect-94.png</file>
+        <file>app_icons/icons8-gear-94.png</file>
+        <file>app_icons/icons8-menu-50.png</file>
+        <file>app_icons/icons8-send-94.png</file>
+        <file>app_icons/icons8-brick-94.png</file>
+        <file>app_icons/icons8-search-94.png</file>
+        <file>app_icons/icons8-text-188.png</file>
+        <file>app_icons/icons8-lock-94.png</file>
+        <file>app_icons/icons8-undo-94.png</file>
+        <file>app_icons/icons8-unlock-94.png</file>
+        <file>app_icons/icons8-view-94.png</file>
+        <file>app_icons/icons8-control-panel-94.png</file>
+        <file>app_icons/icons8-tools-94.png</file>
+        <file>app_icons/icons8-eyes-94.png</file>
+        <file>app_icons/f69ac40a-3d9a-4ab0-90c0-d86770edae78.jpg</file>
+        <file>app_icons/icons8-info-94.png</file>
+        <file>app_icons/icons8-refresh-188.png</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,84 @@
+#ifndef SETTINGSMANAGER_H
+#define SETTINGSMANAGER_H
+
+#include <QString>
+#include <QSettings>
+
+class SettingsManager
+{
+public:
+    SettingsManager();
+    ~SettingsManager();
+
+    QString GetPortName();
+    static int GetBaudRate();
+    static int GetDataBits();
+    static int GetParity();
+    static int GetStopBits();
+    static int GetFlowControl();
+
+    static void SetPortName(QString port_name);
+    static void SetBaudRate(int baud_rate);
+    static void SetDataBits(int data_bits);
+    static void SetParity(int parity);
+    static void SetStopBits(int stop_bits);
+    static void SetFlowControl(int flow_control);
+private:
+    static QSettings *_settings;
+};
+
+#endif // SETTINGSMANAGER_H
+
+
+
+
+#include "SettingsManager.h"
+
+SettingsManager::SettingsManager() {
+    if (_settings == nullptr)
+        _settings = new QSettings("SerialSurfer.ini", QSettings::Format::IniFormat);
+}
+
+SettingsManager::~SettingsManager() {
+    delete _settings;
+}
+
+QString SettingsManager::GetPortName() {
+    return _settings->value("SerialParameters/Port").toString();
+}
+
+int SettingsManager::GetBaudRate() {
+    return _settings->value("SerialParameters/Baudrate").toInt();
+}
+
+int SettingsManager::GetDataBits() {
+    return _settings->value("SerialParameters/DataBits").toInt();
+}
+
+int SettingsManager::GetParity() {
+    return _settings->value("SerialParameters/Parity").toInt();
+}
+
+int SettingsManager::GetStopBits() {
+    return _settings->value("SerialParameters/StopBits").toInt();
+}
+
+int SettingsManager::GetFlowControl() {
+    return _settings->value("SerialParameters/FlowControl").toInt();
+}
+
+void SettingsManager::SetPortName(QString port_name) {
+    _settings->setValue("SerialParameters/Port", port_name);
+}
+
+void SettingsManager::SetBaudRate(int baud_rate) {
+    _settings->setValue("SerialParameters/Baudrate", baud_rate);
+}
+
+void SettingsManager::SetDataBits(int data_bits) {
+    _settings->setValue("SerialParameters/DataBits", data_bits);
+}
+
+void SettingsManager::SetParity(int parity) {
+    _settings->setValue("SerialParameters/Parity", parity);
+}
