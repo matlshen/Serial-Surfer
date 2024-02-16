@@ -2,7 +2,6 @@
 #include "./ui_mainwindow.h"
 #include "OptionsDialog.h"
 #include "SettingsManager.h"
-#include "SerialPort.h"
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -10,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    //SettingsManager::LoadSettings();
+    SettingsManager::LoadSettings();
 
     connect(&_port, &SerialPort::DataReceived, this, &MainWindow::ReadData);
 }
@@ -50,11 +49,26 @@ void MainWindow::on_actionConnect_triggered()
 {
     // If not currently connected
     if (ui->actionConnect->isChecked()) {
-        qDebug() << "Connecting";
+        bool is_connected;
+
+        // Connect to currently selected serial port
+        is_connected = _port.Connect(SettingsManager::GetPort(),
+                                     SettingsManager::GetBaudrate(),
+                                     SettingsManager::GetDataBits(),
+                                     SettingsManager::GetParity(),
+                                     SettingsManager::GetStopBits(),
+                                     SettingsManager::GetFlowControl());
+
+        // If connection failed
+        if (!is_connected) {
+            // Uncheck connect action
+            ui->actionConnect->setChecked(false);
+            QMessageBox::critical(this, "Error", "Cannot connect to serial port");
+        }
     }
     // If currently connected
     else {
-        qDebug() << "Disconnecting";
+        _port.Disconnect();
     }
 
 }

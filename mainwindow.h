@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QString>
+#include "SerialPort.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

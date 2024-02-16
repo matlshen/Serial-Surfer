@@ -15,6 +15,9 @@ public:
     explicit OptionsDialog(QWidget *parent = nullptr);
     ~OptionsDialog();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::OptionsDialog *ui;
 

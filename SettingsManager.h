@@ -29,15 +29,15 @@ public:
     static void SetFlowControl(int flow_control);
 
     // QSettings object
-    static QSettings *_settings;
+    inline static QSettings *_settings = nullptr;
 
     // Serial port settings
-    static QString _port_name;
-    static int _baudrate;
-    static int _data_bits;
-    static int _parity;
-    static int _stop_bits;
-    static int _flow_control;
+    inline static QString _port_name = "";
+    inline static int _baudrate = -1;
+    inline static int _data_bits = -1;
+    inline static int _parity = -1;
+    inline static int _stop_bits = -1;
+    inline static int _flow_control = -1;
 
 signals:
 };

@@ -14,18 +14,18 @@ SerialPort::~SerialPort() {
 }
 
 bool SerialPort::Connect(QString port_name,
-                         QString baudrate,
-                         QString data_bits,
-                         QString parity,
-                         QString stop_bits,
-                         QString flow_control) {
+                         int baudrate,
+                         int data_bits,
+                         int parity,
+                         int stop_bits,
+                         int flow_control) {
     if (m_serial != nullptr) {
         m_serial->close();
         delete m_serial;
     }
 
     QSerialPort::DataBits q_data_bits;
-    switch(data_bits.toInt()) {
+    switch(data_bits) {
         case 5:
             q_data_bits = QSerialPort::Data5;
             break;
@@ -43,14 +43,14 @@ bool SerialPort::Connect(QString port_name,
     }
 
     QSerialPort::Parity q_parity;
-    switch(parity[0].toLatin1()) {
-        case 'N':
+    switch(parity) {
+        case 0:
             q_parity = QSerialPort::NoParity;
             break;
-        case 'E':
+        case 1:
             q_parity = QSerialPort::EvenParity;
             break;
-        case 'O':
+        case 2:
             q_parity = QSerialPort::OddParity;
             break;
         default:
@@ -58,7 +58,7 @@ bool SerialPort::Connect(QString port_name,
     }
 
     QSerialPort::StopBits q_stop_bits;
-    switch(stop_bits.toInt()) {
+    switch(stop_bits) {
     case 1:
         q_stop_bits = QSerialPort::StopBits::OneStop;
         break;
@@ -70,14 +70,14 @@ bool SerialPort::Connect(QString port_name,
     }
 
     QSerialPort::FlowControl q_flow_control;
-    switch(flow_control[0].toLatin1()) {
-    case 'N':
+    switch(flow_control) {
+    case 0:
         q_flow_control = QSerialPort::FlowControl::NoFlowControl;
         break;
-    case 'R':
+    case 1:
         q_flow_control = QSerialPort::FlowControl::HardwareControl;
         break;
-    case 'X':
+    case 2:
         q_flow_control = QSerialPort::FlowControl::SoftwareControl;
         break;
     default:
@@ -87,7 +87,7 @@ bool SerialPort::Connect(QString port_name,
 
     m_serial = new QSerialPort(this);
     m_serial->setPortName(port_name);
-    m_serial->setBaudRate(baudrate.toInt());
+    m_serial->setBaudRate(baudrate);
     m_serial->setDataBits(q_data_bits);
     m_serial->setParity(q_parity);
     m_serial->setStopBits(q_stop_bits);
@@ -99,6 +99,14 @@ bool SerialPort::Connect(QString port_name,
     }
 
     return m_serial->isOpen();
+}
+
+void SerialPort::Disconnect() {
+    if (m_serial != nullptr) {
+        m_serial->close();
+        delete m_serial;
+        m_serial = nullptr;
+    }
 }
 
 bool SerialPort::Write(QByteArray data) {

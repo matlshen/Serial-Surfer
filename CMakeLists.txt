@@ -24,6 +24,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
         resources.qrc
+        SerialPort.h SerialPort.cpp
         OptionsDialog.h OptionsDialog.cpp optionsdialog.ui
         HistoryLineEdit.h HistoryLineEdit.cpp
         SerialPort.h SerialPort.cpp

@@ -12,11 +12,12 @@ public:
     explicit SerialPort(QObject *parent = nullptr);
     ~SerialPort();
     bool Connect(QString port_name,
-                 QString baudrate,
-                 QString data_bits,
-                 QString parity,
-                 QString stop_bits,
-                 QString flow_control);
+                 int baudrate,
+                 int data_bits,
+                 int parity,
+                 int stop_bits,
+                 int flow_control);
+    void Disconnect();
     bool Write(QByteArray data);
 
 signals:
