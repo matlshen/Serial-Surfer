@@ -20,6 +20,9 @@ public:
     static int GetParity();
     static int GetStopBits();
     static int GetFlowControl();
+    static int GetEnterKey();
+    static bool GetLocalEcho();
+    static bool GetContinuous();
 
     static void SetPort(QString port);
     static void SetBaudrate(int baudrate);
@@ -27,6 +30,9 @@ public:
     static void SetParity(int parity);
     static void SetStopBits(int stop_bits);
     static void SetFlowControl(int flow_control);
+    static void SetEnterKey(int enter_key);
+    static void SetLocalEcho(bool local_echo);
+    static void SetContinuous(bool continuous);
 
     // QSettings object
     inline static QSettings *_settings = nullptr;
@@ -38,6 +44,9 @@ public:
     inline static int _parity = -1;
     inline static int _stop_bits = -1;
     inline static int _flow_control = -1;
+    inline static int _enter_key = -1;
+    inline static bool _local_echo = false;
+    inline static bool _continuous = false;
 
 signals:
 };

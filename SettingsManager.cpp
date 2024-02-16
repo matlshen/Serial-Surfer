@@ -34,6 +34,15 @@ void SettingsManager::LoadSettings() {
 
     if (_settings->contains("SerialParameters/FlowControl"))
         _flow_control = _settings->value("SerialParameters/FlowControl").toInt();
+
+    if (_settings->contains("TerminalParameters/EnterKey"))
+        _enter_key = _settings->value("TerminalParameters/EnterKey").toInt();
+
+    if (_settings->contains("TerminalParameters/LocalEcho"))
+        _local_echo = _settings->value("TerminalParameters/LocalEcho").toBool();
+
+    if (_settings->contains("TerminalParameters/Continuous"))
+        _continuous = _settings->value("TerminalParameters/Continuous").toBool();
 }
 
 void SettingsManager::StoreSettings() {
@@ -44,6 +53,9 @@ void SettingsManager::StoreSettings() {
     _settings->setValue("SerialParameters/Parity", _parity);
     _settings->setValue("SerialParameters/StopBits", _stop_bits);
     _settings->setValue("SerialParameters/FlowControl", _flow_control);
+    _settings->setValue("TerminalParameters/EnterKey", _enter_key);
+    _settings->setValue("TerminalParameters/LocalEcho", _local_echo);
+    _settings->setValue("TerminalParameters/Continuous", _continuous);
 }
 
 QString SettingsManager::GetPort() {
@@ -70,6 +82,18 @@ int SettingsManager::GetFlowControl() {
     return _flow_control;
 }
 
+int SettingsManager::GetEnterKey() {
+    return _enter_key;
+}
+
+bool SettingsManager::GetLocalEcho() {
+    return _local_echo;
+}
+
+bool SettingsManager::GetContinuous() {
+    return _continuous;
+}
+
 void SettingsManager::SetPort(QString port) {
     _port_name = port;
 }
@@ -92,4 +116,16 @@ void SettingsManager::SetStopBits(int stop_bits) {
 
 void SettingsManager::SetFlowControl(int flow_control) {
     _flow_control = flow_control;
+}
+
+void SettingsManager::SetEnterKey(int enter_key) {
+    _enter_key = enter_key;
+}
+
+void SettingsManager::SetLocalEcho(bool local_echo) {
+    _local_echo = local_echo;
+}
+
+void SettingsManager::SetContinuous(bool continuous) {
+    _continuous = continuous;
 }
