@@ -13,7 +13,19 @@ void SerialDisplay::SetScrollLock(bool locked) {
 void SerialDisplay::Input(QByteArray data) {
     // If not hex format, append data as utf8 string
     if (!_hex_format) {
-        insertPlainText(QString::fromUtf8(data));
+        QString text_data;
+
+        // Handle special characters
+        for (char ch : data) {
+            if (ch == '\n' || ch == '\r')
+                text_data.append(ch);
+            else if (ch <= 0x1F)
+                text_data.append('.');
+            else
+                text_data.append(ch);
+        }
+
+        insertPlainText(text_data);
     }
     // If hex is set
     else {

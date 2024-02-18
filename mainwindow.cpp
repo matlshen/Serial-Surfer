@@ -46,7 +46,10 @@ void MainWindow::SendData() {
     // Turn text_data into a QByteArray
     // If input matches hex pattern (hXX), convert to hex
     QByteArray write_data;
-    QRegularExpression hex_pattern("h([0-9a-fA-F]{2})");
+    static QRegularExpression hex_pattern("h([0-9a-fA-F]{2})");
+
+    bool contains_hex = hex_pattern.match(text_data).hasMatch();
+
     int pos = 0;
     while (pos < text_data.length()) {
         QRegularExpressionMatch match = hex_pattern.match(text_data, pos);
@@ -69,6 +72,28 @@ void MainWindow::SendData() {
             // Append this character as its ASCII representation
             write_data.append(text_data.at(pos).toLatin1());
             pos += 1;
+        }
+    }
+
+    // Send enter key if no hex characters
+    if (!contains_hex) {
+        switch (SettingsManager::GetEnterKey()) {
+            case 0:
+                // Append carriage return and line feed
+                write_data.append('\r');
+                write_data.append('\n');
+                break;
+            case 1:
+                // Append carriage return
+                write_data.append('\r');
+                break;
+            case 2:
+                // Append line feed
+                write_data.append('\n');
+                break;
+            default:
+                // Do nothing
+                break;
         }
     }
 
@@ -96,6 +121,9 @@ void MainWindow::SendData() {
             ui->RxTextEdit->setTextColor(Qt::black);
         }
     }
+
+    // Clear the line edit
+    ui->TxLineEdit->clear();
 }
 
 void MainWindow::on_actionConnect_triggered()
