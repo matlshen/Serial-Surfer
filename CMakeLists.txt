@@ -29,6 +29,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         HistoryLineEdit.h HistoryLineEdit.cpp
         SerialPort.h SerialPort.cpp
         SettingsManager.h SettingsManager.cpp
+        StatusBar.h StatusBar.cpp
     )
 target_include_directories(SerialSurfer2
     PRIVATE

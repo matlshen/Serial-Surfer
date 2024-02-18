@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     SettingsManager::LoadSettings();
 
+
     connect(&_port, &SerialPort::DataReceived, this, &MainWindow::ReadData);
 }
 
@@ -29,7 +30,7 @@ void MainWindow::ReadData(QByteArray data) {
     //     ui->rxLatencyVal->setText(elapsed_str);
     // }
 
-    // Write data to TextEditRx
+    // Write data to RxTextEdit
     ui->RxTextEdit->moveCursor(QTextCursor::End);
     ui->RxTextEdit->insertPlainText(QString::fromUtf8(data));
 
@@ -37,13 +38,38 @@ void MainWindow::ReadData(QByteArray data) {
     //AddRxBytes(data.size());
 }
 
-void MainWindow::on_actionOptions_triggered()
-{
-    // Open options dialog
-    OptionsDialog optionsDialog;
-    optionsDialog.exec();
-}
+void MainWindow::SendData() {
+    bool is_written;
+    QString text_data = ui->TxLineEdit->text();
 
+    // TODO: Handle formatting
+    QByteArray write_data = text_data.toUtf8();
+
+    is_written = _port.Write(write_data);
+
+    // Handle errors
+    if (!is_written)
+        QMessageBox::critical(this, "Error", "Cannot write to serial port");
+
+    // Start timer
+    _timer.start();
+
+    // If echo is enabled, write to text edit
+    if (SettingsManager::GetLocalEcho()) {
+        // Set text color to blue
+        ui->RxTextEdit->moveCursor(QTextCursor::End);
+        ui->RxTextEdit->setTextColor(Qt::blue);
+
+        // Write contents of LineEditTx to RxTextEdit
+        ui->RxTextEdit->insertPlainText(ui->TxLineEdit->text());
+
+        // Set text color back to black
+        ui->RxTextEdit->setTextColor(Qt::black);
+    }
+
+    // Update tx bytes
+    //AddTxBytes(write_data.size());
+}
 
 void MainWindow::on_actionConnect_triggered()
 {
@@ -70,6 +96,50 @@ void MainWindow::on_actionConnect_triggered()
     else {
         _port.Disconnect();
     }
-
 }
+
+void MainWindow::on_actionOptions_triggered()
+{
+    // Open options dialog
+    OptionsDialog optionsDialog;
+    optionsDialog.exec();
+}
+
+
+void MainWindow::on_actionScroll_Lock_triggered()
+{
+    // Scroll lock on
+    if (ui->actionScroll_Lock->isChecked()) {
+    }
+    // Scroll lock off
+    else {
+    }
+}
+
+void MainWindow::on_actionClear_triggered()
+{
+    // Clear RxTextEdit
+    ui->RxTextEdit->clear();
+
+    // TODO: Reset Tx, Rx bytes and latency
+}
+
+
+
+void MainWindow::on_sendButton_clicked()
+{
+    // Same as when return pressed
+    SendData();
+    ui->TxLineEdit->AddToHistory();
+}
+
+
+void MainWindow::on_TxLineEdit_returnPressed()
+{
+    // Same as when send button pressed
+    SendData();
+    ui->TxLineEdit->AddToHistory();
+}
+
+
 
