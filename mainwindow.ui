@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>603</width>
+    <height>447</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Verdana</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Serial Surfer</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normalon>:/icons/app_icons/f69ac40a-3d9a-4ab0-90c0-d86770edae78.jpg</normalon>
+   </iconset>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>4</number>
+      </property>
+      <item>
+       <widget class="SerialDisplay" name="RxTextEdit">
+        <property name="font">
+         <font>
+          <family>Consolas</family>
+         </font>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="undoRedoEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <property name="leftMargin">
+         <number>6</number>
+        </property>
+        <property name="rightMargin">
+         <number>6</number>
+        </property>
+        <item>
+         <widget class="HistoryLineEdit" name="TxLineEdit">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Consolas</family>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="sendButton">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Send</string>
+          </property>
+          <property name="icon">
+           <iconset>
+            <normalon>:/icons/app_icons/icons8-send-94.png</normalon>
+           </iconset>
+          </property>
+          <property name="autoDefault">
+           <bool>false</bool>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="font">
+    <font>
+     <family>Arial</family>
+    </font>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>40</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionConnect"/>
+   <addaction name="actionOptions"/>
+   <addaction name="actionView_Hex"/>
+   <addaction name="actionScroll_Lock"/>
+   <addaction name="actionClear"/>
+  </widget>
+  <action name="actionOptions">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/app_icons/icons8-tools-94.png</normaloff>:/icons/app_icons/icons8-tools-94.png</iconset>
+   </property>
+   <property name="text">
+    <string>Options</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionConnect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/app_icons/icons8-disconnect-94.png</normaloff>
+     <normalon>:/icons/app_icons/icons8-connect-94.png</normalon>
+     <disabledoff>:/icons/app_icons/icons8-disconnect-94.png</disabledoff>
+     <disabledon>:/icons/app_icons/icons8-disconnect-94.png</disabledon>
+     <selectedoff>:/icons/app_icons/icons8-connect-94.png</selectedoff>
+     <selectedon>:/icons/app_icons/icons8-connect-94.png</selectedon>:/icons/app_icons/icons8-disconnect-94.png</iconset>
+   </property>
+   <property name="text">
+    <string>Connect</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/app_icons/icons8-clear-95.png</normaloff>
+     <normalon>:/icons/app_icons/icons8-clear-95.png</normalon>:/icons/app_icons/icons8-clear-95.png</iconset>
+   </property>
+   <property name="text">
+    <string>Clear</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionView_Hex">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/app_icons/icons8-brick-94.png</normaloff>:/icons/app_icons/icons8-brick-94.png</iconset>
+   </property>
+   <property name="text">
+    <string>View Hex</string>
+   </property>
+   <property name="toolTip">
+    <string>Format</string>
+   </property>
+   <property name="font">
+    <font>
+     <family>Verdana</family>
+     <pointsize>8</pointsize>
+    </font>
+   </property>
+  </action>
+  <action name="actionScroll_Lock">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/app_icons/icons8-unlock-94.png</normaloff>
+     <normalon>:/icons/app_icons/icons8-lock-94.png</normalon>:/icons/app_icons/icons8-unlock-94.png</iconset>
+   </property>
+   <property name="text">
+    <string>Scroll Lock</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::NoRole</enum>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>HistoryLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>HistoryLineEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SerialDisplay</class>
+   <extends>QTextEdit</extends>
+   <header>SerialDisplay.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
