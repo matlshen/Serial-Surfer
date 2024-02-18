@@ -1,4 +1,5 @@
 #include "HistoryLineEdit.h"
+#include <QWheelEvent>
 
 HistoryLineEdit::HistoryLineEdit(QWidget *parent)
     : QLineEdit(parent)
@@ -20,6 +21,14 @@ void HistoryLineEdit::keyPressEvent(QKeyEvent *event) {
     default:
         // For other keys, proceed as normal
         QLineEdit::keyPressEvent(event);
+    }
+}
+
+void HistoryLineEdit::wheelEvent(QWheelEvent *event) {
+    if (event->angleDelta().y() > 0) {
+        ShowPreviousItem();
+    } else if (event->angleDelta().y() < 0) {
+        ShowNextItem();
     }
 }
 

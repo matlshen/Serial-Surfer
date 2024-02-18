@@ -17,6 +17,7 @@ public slots:
 signals:
 protected:
     void keyPressEvent(QKeyEvent *event) override;
+    void wheelEvent(QWheelEvent *event) override;
 private:
     QStringList _history;
     int _history_index;

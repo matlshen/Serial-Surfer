@@ -49,7 +49,7 @@
        <number>4</number>
       </property>
       <item>
-       <widget class="QTextEdit" name="RxTextEdit">
+       <widget class="SerialDisplay" name="RxTextEdit">
         <property name="font">
          <font>
           <family>Consolas</family>
@@ -253,6 +253,11 @@
    <class>HistoryLineEdit</class>
    <extends>QLineEdit</extends>
    <header>HistoryLineEdit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>SerialDisplay</class>
+   <extends>QTextEdit</extends>
+   <header>SerialDisplay.h</header>
   </customwidget>
  </customwidgets>
  <resources>

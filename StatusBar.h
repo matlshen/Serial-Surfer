@@ -10,7 +10,7 @@ class StatusBar : public QObject
 {
     Q_OBJECT
 public:
-    explicit StatusBar(QObject *parent = nullptr, QStatusBar *statusBar = nullptr);
+    explicit StatusBar(QObject *parent = nullptr);
 
 signals:
 private:

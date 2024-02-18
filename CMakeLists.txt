@@ -30,6 +30,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         SerialPort.h SerialPort.cpp
         SettingsManager.h SettingsManager.cpp
         StatusBar.h StatusBar.cpp
+        SerialDisplay.h SerialDisplay.cpp
     )
 target_include_directories(SerialSurfer2
     PRIVATE

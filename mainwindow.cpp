@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "OptionsDialog.h"
 #include "SettingsManager.h"
+#include <QRegularExpression>
 #include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -42,8 +43,34 @@ void MainWindow::SendData() {
     bool is_written;
     QString text_data = ui->TxLineEdit->text();
 
-    // TODO: Handle formatting
-    QByteArray write_data = text_data.toUtf8();
+    // Turn text_data into a QByteArray
+    // If input matches hex pattern (hXX), convert to hex
+    QByteArray write_data;
+    QRegularExpression hex_pattern("h([0-9a-fA-F]{2})");
+    int pos = 0;
+    while (pos < text_data.length()) {
+        QRegularExpressionMatch match = hex_pattern.match(text_data, pos);
+        if (match.hasMatch() && match.capturedStart(0) == pos) {
+            // Convert the hex sequence to a byte
+            bool ok;
+            int hexValue = match.captured(1).toInt(&ok, 16);
+            if (ok) {
+                write_data.append(static_cast<char>(hexValue));
+                pos += match.captured(0).length(); // Move past this hex sequence
+
+                // If the next character is a space and it's followed by another hex pattern, skip the space
+                if (pos < text_data.length() && text_data[pos] == ' ' && hex_pattern.match(text_data, pos + 1).hasMatch()) {
+                    pos += 1; // Skip the space
+                }
+            } else {
+                pos += 1; // This should never be reached with a valid hex pattern match
+            }
+        } else {
+            // Append this character as its ASCII representation
+            write_data.append(text_data.at(pos).toLatin1());
+            pos += 1;
+        }
+    }
 
     is_written = _port.Write(write_data);
 
@@ -51,24 +78,24 @@ void MainWindow::SendData() {
     if (!is_written)
         QMessageBox::critical(this, "Error", "Cannot write to serial port");
 
-    // Start timer
-    _timer.start();
+    // If data is written successfully
+    else {
+        // Start timer
+        _timer.start();
 
-    // If echo is enabled, write to text edit
-    if (SettingsManager::GetLocalEcho()) {
-        // Set text color to blue
-        ui->RxTextEdit->moveCursor(QTextCursor::End);
-        ui->RxTextEdit->setTextColor(Qt::blue);
+        // If echo is enabled, write to text edit
+        if (SettingsManager::GetLocalEcho()) {
+            // Set text color to blue
+            ui->RxTextEdit->moveCursor(QTextCursor::End);
+            ui->RxTextEdit->setTextColor(Qt::blue);
 
-        // Write contents of LineEditTx to RxTextEdit
-        ui->RxTextEdit->insertPlainText(ui->TxLineEdit->text());
+            // Write contents of LineEditTx to RxTextEdit
+            ui->RxTextEdit->insertPlainText(ui->TxLineEdit->text());
 
-        // Set text color back to black
-        ui->RxTextEdit->setTextColor(Qt::black);
+            // Set text color back to black
+            ui->RxTextEdit->setTextColor(Qt::black);
+        }
     }
-
-    // Update tx bytes
-    //AddTxBytes(write_data.size());
 }
 
 void MainWindow::on_actionConnect_triggered()
@@ -110,9 +137,11 @@ void MainWindow::on_actionScroll_Lock_triggered()
 {
     // Scroll lock on
     if (ui->actionScroll_Lock->isChecked()) {
+        ui->RxTextEdit->SetScrollLock(true);
     }
     // Scroll lock off
     else {
+        ui->RxTextEdit->SetScrollLock(false);
     }
 }
 
