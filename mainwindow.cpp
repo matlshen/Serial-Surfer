@@ -32,7 +32,11 @@ void MainWindow::ReadData(QByteArray data) {
     // }
 
     // Write data to RxTextEdit
-    ui->RxTextEdit->moveCursor(QTextCursor::End);
+
+    // Set text color to blue
+    QTextCharFormat black_format;
+    black_format.setForeground(Qt::black);
+    ui->RxTextEdit->setCurrentCharFormat(black_format);
     ui->RxTextEdit->Input(data);
 
     // Update rx bytes
@@ -111,14 +115,12 @@ void MainWindow::SendData() {
         // If echo is enabled, write to text edit
         if (SettingsManager::GetLocalEcho()) {
             // Set text color to blue
-            ui->RxTextEdit->moveCursor(QTextCursor::End);
-            ui->RxTextEdit->setTextColor(Qt::blue);
+            QTextCharFormat blue_format;
+            blue_format.setForeground(Qt::blue);
+            ui->RxTextEdit->setCurrentCharFormat(blue_format);
 
             // Write contents of LineEditTx to RxTextEdit
             ui->RxTextEdit->Input(write_data);
-
-            // Set text color back to black
-            ui->RxTextEdit->setTextColor(Qt::black);
         }
     }
 
