@@ -33,7 +33,7 @@ void MainWindow::ReadData(QByteArray data) {
 
     // Write data to RxTextEdit
     ui->RxTextEdit->moveCursor(QTextCursor::End);
-    ui->RxTextEdit->insertPlainText(QString::fromUtf8(data));
+    ui->RxTextEdit->Input(data);
 
     // Update rx bytes
     //AddRxBytes(data.size());
@@ -90,7 +90,7 @@ void MainWindow::SendData() {
             ui->RxTextEdit->setTextColor(Qt::blue);
 
             // Write contents of LineEditTx to RxTextEdit
-            ui->RxTextEdit->insertPlainText(ui->TxLineEdit->text());
+            ui->RxTextEdit->Input(write_data);
 
             // Set text color back to black
             ui->RxTextEdit->setTextColor(Qt::black);
@@ -132,6 +132,12 @@ void MainWindow::on_actionOptions_triggered()
     optionsDialog.exec();
 }
 
+void MainWindow::on_actionView_Hex_triggered()
+{
+    ui->RxTextEdit->SetHexFormat(ui->actionView_Hex->isChecked());
+}
+
+
 
 void MainWindow::on_actionScroll_Lock_triggered()
 {
@@ -169,6 +175,8 @@ void MainWindow::on_TxLineEdit_returnPressed()
     SendData();
     ui->TxLineEdit->AddToHistory();
 }
+
+
 
 
 

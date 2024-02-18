@@ -28,18 +28,15 @@ public:
 
 private slots:
     void ReadData(QByteArray data);
+
     void on_actionConnect_triggered();
     void on_actionOptions_triggered();
-
+    void on_actionView_Hex_triggered();
     void on_actionScroll_Lock_triggered();
-
     void on_actionClear_triggered();
 
     void on_sendButton_clicked();
-
     void on_TxLineEdit_returnPressed();
-
-
 
 private:
     Ui::MainWindow *ui;

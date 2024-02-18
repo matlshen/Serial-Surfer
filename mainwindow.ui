@@ -214,12 +214,15 @@
    </property>
   </action>
   <action name="actionView_Hex">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/icons/app_icons/icons8-brick-94.png</normaloff>:/icons/app_icons/icons8-brick-94.png</iconset>
    </property>
    <property name="text">
-    <string>Format</string>
+    <string>View Hex</string>
    </property>
    <property name="toolTip">
     <string>Format</string>

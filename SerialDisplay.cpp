@@ -1,9 +1,28 @@
 #include "SerialDisplay.h"
 #include <QScrollBar>
 
+void SerialDisplay::SetHexFormat(bool hex_format) {
+    _hex_format = hex_format;
+}
+
 void SerialDisplay::SetScrollLock(bool locked) {
     _scroll_lock = locked;
     _scroll_bar_pos = this->verticalScrollBar()->value();
+}
+
+void SerialDisplay::Input(QByteArray data) {
+    // If not hex format, append data as utf8 string
+    if (!_hex_format) {
+        insertPlainText(QString::fromUtf8(data));
+    }
+    // If hex is set
+    else {
+        // If not empty, add a leading space
+        if (!this->document()->isEmpty()) {
+            insertPlainText(" ");
+        }
+        insertPlainText(data.toHex(' '));
+    }
 }
 
 void SerialDisplay::insertPlainText(const QString &text) {
@@ -18,7 +37,5 @@ void SerialDisplay::insertPlainText(const QString &text) {
 
         // Restore the scrollbar position
         this->verticalScrollBar()->setValue(_scroll_bar_pos);
-
-        qDebug() << "Scroll lock enabled: ";
     }
 }
